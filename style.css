@@ -8,13 +8,12 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
-    background: #000942;
-    background-image: url("images/photo.png");
-    background-size: 38%;
-    background-position: 92% 100%;
+    
+    background-image: url("images/faded-background.jpg");
+    background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow: hidden;
+    overflow: hidden; 
 }
 .wrapper{
     display: flex;
