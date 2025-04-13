@@ -9,7 +9,7 @@
 }
 body{
     
-    background-image: url("my_app/static/images/faded-background.jpg");
+    background-image: url("images/faded-background.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
