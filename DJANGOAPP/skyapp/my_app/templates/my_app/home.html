@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <title>Login & Registration</title>
+    <title> Login & Registration</title>
 </head>
 <body>
  <div class="wrapper">
@@ -38,17 +38,24 @@
             <div class="top">
                 <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
                 <header>Login</header>
+                {% if error %}
+                <p style="color: red; margin-top: 10px;">{{ error }}</p>
+                {% endif %}
             </div>
+          
+         <form id= "loginForm" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
             <div class="input-box">
-                <input type="text" class="input-field" placeholder="Username or Email">
+                <input type="text" name="username" class="input-field" placeholder="Username">
                 <i class="bx bx-user"></i>
             </div>
             <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
+                <input type="password" name="password" class="input-field" placeholder="Password">
                 <i class="bx bx-lock-alt"></i>
             </div>
             <div class="input-box">
-                <input type="submit" class="submit" value="Sign In">
+                <input type="submit"  class="submit" value="Sign In">
             </div>
             <div class="two-col">
                 <div class="one">
@@ -59,6 +66,7 @@
                     <label><a href="#">Forgot password?</a></label>
                 </div>
             </div>
+        </form>
         </div>
         <!------------------- registration form -------------------------->
         <div class="register-container" id="register">
@@ -66,27 +74,32 @@
                 <span>Have an account? <a href="#" onclick="login()">Login</a></span>
                 <header>Sign Up</header>
             </div>
+            
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+
             <div class="two-forms">
                 <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Firstname">
+                    <input type="text" name="first_name" class="input-field" placeholder="Firstname" required>
                     <i class="bx bx-user"></i>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Lastname">
+                    <input type="text" name="last_name" class="input-field" placeholder="Lastname" required>
                     <i class="bx bx-user"></i>
                 </div>
             </div>
             <div class="input-box">
-                <input type="text" class="input-field" placeholder="Email">
+                <input type="text" name="username" class="input-field" placeholder="Username" required>
                 <i class="bx bx-envelope"></i>
             </div>
             <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
+                <input type="password" name="password" class="input-field" placeholder="Password" required>
                 <i class="bx bx-lock-alt"></i>
             </div>
             <div class="input-box">
                 <input type="submit" class="submit" value="Register">
             </div>
+        </form>
             <div class="two-col">
                 <div class="one">
                     <input type="checkbox" id="register-check">
@@ -96,6 +109,7 @@
                     <label><a href="#">Terms & conditions</a></label>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 </div>   
@@ -111,6 +125,18 @@
    }
  
 </script>
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        const username = document.querySelector("input[name='username']").value.trim();
+        const password = document.querySelector("input[name='password']").value.trim();
+        
+        if (!username || !password) {
+            alert("Please enter both username and password.");
+            event.preventDefault(); // stop the form from submitting
+        }
+    });
+</script>
+
 <script>
     var a = document.getElementById("loginBtn");
     var b = document.getElementById("registerBtn");
