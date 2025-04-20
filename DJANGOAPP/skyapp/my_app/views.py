@@ -46,5 +46,8 @@ def about(request):
 def contact(request):
     return render(request, "my_app/contactus.html")
 
+def profile(request):
+    return render(request, "my_app/profile.html")
+
 def engineerdashboard(request):
     return render(request, "my_app/engineerdashboard.html")
