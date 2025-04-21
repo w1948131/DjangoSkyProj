@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Personal Health Card</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'tables.css' %}">
+    <link rel="stylesheet" href="{% static 'users.css' %}">
+</head>
+<body>
+    <div class="healthcard-wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>DJANGO LABS</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="link">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="healthcard-container">
+            <h1>Your Personal Health Card</h1>
+            
+            <div class="container">
+                <div class="healthcard-section">
+                    <div class="card-header">
+                        <div class="user-info">
+                            <div class="user-avatar">
+                                <i>{{ first_name }}{{ last_name }}</i>
+                            </div>
+                            <div class="user-details">
+                                <div class="user-name">{{ first_name }} {{ last_name }}</div>
+                                <p class="user-role">Team Developer</p>
+                                <p class="last-updated">Last updated: {{ last_updated|date:"F j, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3>Your Health Card Responses</h3>
+                        <table class="health-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Your Response</th>
+                                    <th>Your Feedback</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in health_items %}
+                                <tr>
+                                    <td class="category">{{ item.category }}</td>
+                                    <td class="response">
+                                        {% if item.response != 'waiting' %}
+                                            <div class="result-indicator {{ item.response }}"></div>
+                                        {% else %}
+                                            <div class="result-indicator waiting"></div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="feedback">
+                                        {% if item.feedback %}
+                                            <div class="feedback-text">{{ item.feedback }}</div>
+                                        {% else %}
+                                            <div class="no-feedback">No feedback provided</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <div class="action-buttons">
+                            <a href="{% url 'summary' %}" class="btn outline-btn">View Team Summary</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-card">
+                        <h3>Your Health Card</h3>
+                        <p>Your Personal Health Card is shown here, if you would like you can click on "View Team Summary" to check the team's overall score.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Color Guide</h3>
+                        <div class="color-guide">
+                            <div class="color-item">
+                                <div class="color-desc">Green: Healthy</div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-desc">Amber: Needs Attention</div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-desc">Red: Critical</div>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-desc">Grey: No response yet</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Health Check Voting</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'tables.css' %}">
+    <link rel="stylesheet" href="{% static 'users.css' %}">
+    <link rel="stylesheet" href="{% static 'vote.css' %}">
+</head>
+<body>
+    {% csrf_token %}
+    <div class="voting-wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>DJANGO LABS</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="link">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="vote-container">
+            <h1>Team Health Check Voting</h1>
+            
+            <div class="container">
+                <div class="voting-section">
+                    <!-- posting information to django db to be saved -->
+                    <form id="votingForm" method="POST">
+                        {% csrf_token %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <!-- headers for table -->
+                                    <th>Category</th>
+                                    <th>Result</th>
+                                    <th>Vote</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Teamwork</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="teamwork-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Teamwork')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Pawns or Players</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="pawns-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Pawns or Players')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Mission</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="mission-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Mission')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Health of Codebase</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="codebase-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Health of Codebase')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Suitable Process</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="process-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Suitable Process')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Delivering Value</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="value-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Delivering Value')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Learning</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="learning-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Learning')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Speed</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="speed-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Speed')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Easy to Release</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="release-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Easy to Release')">Vote</button></td>
+                                </tr>
+                                <tr>
+                                    <!-- Table listing for specific category -->
+                                    <td class="category">Fun</td>
+                                    <!-- Result indication for selected vote from pop up -->
+                                    <td class="result"><div class="result-indicator" id="fun-result"></div></td>
+                                    <!-- button for opening vote pop up -->
+                                    <td class="vote-cell"><button type="button" class="vote-btn" onclick="openVoteModal('Fun')">Vote</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="submit-btn" onclick="submitAllVotes()">Submit All Votes</button>
+                    </form>
+                </div>
+                
+                <div class="user-section">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i>?</i>
+                        </div>
+                        <!-- Displays User's names-->
+                        <div class="user-name">{{ first_name }} {{ last_name }}</div>
+                        <!-- Place holder for role. -->
+                        <div class="user-role">Team Developer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vote Pop up -->
+    <div id="voteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-category">Category Name</h2>
+                <span class="close" onclick="closeVoteModal()">&times;</span>
+            </div>
+            
+            <div class="selected-color" id="selected-color-text">Select a color below</div>
+            
+            <div class="color-options">
+                <!-- Traffic light option for vote -->
+                <div class="color-label">
+                    <div class="color-option red" onclick="selectColor('red')"></div>
+                    <span class="color-name">Red</span>
+                </div>
+                <!-- Traffic light option for vote -->
+                <div class="color-label">
+                    <div class="color-option amber" onclick="selectColor('amber')"></div>
+                    <span class="color-name">Amber</span>
+                </div>
+                <!-- Traffic light option for vote -->
+                <div class="color-label">
+                    <div class="color-option green" onclick="selectColor('green')"></div>
+                    <span class="color-name">Green</span>
+                </div>
+            </div>
+            <!-- text box for feedback area -->
+            <textarea id="feedback-input" class="feedback-area" placeholder="Leave feedback here..."></textarea>
+            <!-- button to submit vote for specific category -->
+            <button class="modal-submit" onclick="submitVote()">Submit</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentCategory = '';
+        let selectedColor = '';
+        let votes = {};
+        
+        function openVoteModal(category) {
+            currentCategory = category;
+            document.getElementById('modal-category').textContent = category;
+            document.getElementById('selected-color-text').textContent = 'Select a color below';
+            
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            document.getElementById('feedback-input').value = '';
+            
+            document.getElementById('voteModal').style.display = 'block';
+            
+            if (votes[getCategoryId(category)]) {
+                selectColor(votes[getCategoryId(category)].color);
+                document.getElementById('feedback-input').value = votes[getCategoryId(category)].feedback || '';
+            }
+        }
+        
+        function closeVoteModal() {
+            document.getElementById('voteModal').style.display = 'none';
+            currentCategory = '';
+            selectedColor = '';
+        }
+        
+        function selectColor(color) {
+            selectedColor = color;
+            
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            document.querySelector(`.color-option.${color}`).classList.add('selected');
+            document.getElementById('selected-color-text').textContent = 
+                `Selected: ${color.charAt(0).toUpperCase() + color.slice(1)}`;
+        }
+
+        // Mapping for category
+        
+        function getCategoryId(category) {
+            const mapping = {
+                'Teamwork': 'teamwork',
+                'Pawns or Players': 'pawns',
+                'Mission': 'mission',
+                'Health of Codebase': 'codebase',
+                'Suitable Process': 'process',
+                'Delivering Value': 'value',
+                'Learning': 'learning',
+                'Speed': 'speed',
+                'Easy to Release': 'release',
+                'Fun': 'fun'
+            };
+            return mapping[category] || category.toLowerCase().replace(/\s+/g, '-');
+        }
+
+        // Function for getting the vote from user
+        
+        function submitVote() {
+            if (!selectedColor) {
+                // If color isn't selected, prompted with an error
+                alert('Please select a color');
+                return;
+            }
+            
+            // associating category with results, feedback etc.
+            const categoryId = getCategoryId(currentCategory);
+            const feedback = document.getElementById('feedback-input').value;
+            
+            votes[categoryId] = {
+                category: currentCategory,
+                color: selectedColor,
+                feedback: feedback
+            };
+            
+            const resultElement = document.getElementById(`${categoryId}-result`);
+            resultElement.className = 'result-indicator';
+            resultElement.classList.add(selectedColor);
+            
+            // Closes the pop up for the vote.
+            closeVoteModal();
+        }
+        
+        // Function for submitting all the votes
+        function submitAllVotes() {
+
+            // Categories for the healthcheck vote
+            const categories = [
+                'Teamwork', 'Pawns or Players', 'Mission', 'Health of Codebase',
+                'Suitable Process', 'Delivering Value', 'Learning', 'Speed',
+                'Easy to Release', 'Fun'
+            ];
+
+            // Checks for missing categories, displays error message
+            
+            const missingVotes = categories.filter(category => 
+                !votes[getCategoryId(category)]
+            );
+            
+            if (missingVotes.length > 0) {
+                alert(`Please vote on the following categories: ${missingVotes.join(', ')}`);
+                return;
+            }
+
+            const form = document.getElementById('votingForm');
+            
+            Object.entries(votes).forEach(([categoryId, voteData]) => {
+                const categoryInput = document.createElement('input');
+                categoryInput.type = 'hidden';
+                categoryInput.name = voteData.category;
+                categoryInput.value = JSON.stringify({
+                    color: voteData.color,
+                    feedback: voteData.feedback
+                });
+                form.appendChild(categoryInput);
+            });
+
+            form.submit();
+        }
+    </script>
+</body>
+</html>

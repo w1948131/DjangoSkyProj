@@ -1,0 +1,67 @@
+/* summary.css - Summary page specific styles */
+
+/* Team section header */
+.team-section h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* Overall score container */
+.overall-score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+
+.overall-score-container h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.overall-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.score-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.score-label {
+    font-size: 1rem;
+    color: #666;
+}
+
+.score-indicator {
+    width: 80px;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.score-indicator.red {
+    background-color: #ff6b6b;
+}
+
+.score-indicator.amber {
+    background-color: #ffd166;
+}
+
+.score-indicator.green {
+    background-color: #06d6a0;
+}
+
+@media (max-width: 768px) {
+    .score-value {
+        font-size: 2.5rem;
+    }
+}
