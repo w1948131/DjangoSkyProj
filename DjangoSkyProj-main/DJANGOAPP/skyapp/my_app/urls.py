@@ -13,4 +13,5 @@ urlpatterns = [
     path('voting/', views.voting_view, name='voting'),
     path('summary/', views.summary, name='summary'),
     path('healthcard/', views.healthcard, name='healthcard'),
+    path('adminpage/', views.admin_create_view, name='adminpage'),
 ]

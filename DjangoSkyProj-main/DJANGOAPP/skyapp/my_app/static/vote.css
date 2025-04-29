@@ -102,6 +102,10 @@
     align-items: center;
 }
 
+.color-option.red { background-color: #ff6b6b !important; }
+.color-option.amber { background-color: #ffd166 !important; }
+.color-option.green { background-color: #06d6a0 !important; }
+
 .color-option:hover {
     transform: scale(1.05);
 }

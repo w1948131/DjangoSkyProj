@@ -4,14 +4,17 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 import json
 from django.contrib.auth.decorators import login_required
-from .models import Vote, HealthCard
+from .models import Vote, HealthCard, Employee
 import json
 from django.db.models import Avg
+from .forms import AdminCreateUserForm
+from django.contrib import messages
 
 # Create your views here.
 
 def login_view(request):
     if request.method == 'POST':
+        #TO-DO change username to email to grab info from the employees table
         username = request.POST.get('username')
         password = request.POST.get('password')
         
@@ -26,31 +29,78 @@ def login_view(request):
 
 def register_view(request):
     if request.method == 'POST':
+
+        email = request.POST.get('email')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
         password = request.POST.get('password')
+
+
+        if not all([email, username, password]):
+            return render(request, 'my_app/home.html', {'error': 'Email, username and password are required'})
         
-        if username and password:
-            if User.objects.filter(username=username).exists():
-                return render(request, 'my_app/home.html', {'error': 'username already exists'})
+        if User.objects.filter(email=email).exists():
+            return render(request, 'my_app/home.html', {'error': 'This user is already registered'})
+        
+        if User.objects.filter(username=username).exists():
+            return render(request, 'my_app/home.html', {'error': 'This username is already taken'})
+        
+        try:
+            employee = Employee.objects.get(email=email)
+
+            if not first_name and employee.first_name:
+                first_name = employee.first_name
+            if not last_name and employee.last_name:
+                last_name = employee.last_name
             
-            user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
+
+            user = User.objects.create_user(
+                email=email,
+                username=username,
+                password=password
+            )
+
+            user.first_name = employee.first_name
+            user.last_name = employee.last_name
+            user.save()
+            
+            employee.user = user
+            employee.registered = True
+            employee.save()
+            
             login(request, user)
             
             return redirect('home')
-        else:
-            return render(request, 'my_app/home.html', {'error': 'Enter credentials in all fields'})
+            
+        except Employee.DoesNotExist:
+            return render(request, 'my_app/home.html', {'error': 'This email is not registered in our employee database'})
+    
     return redirect('home')
+
+
+def admin_create_view(request):
+    if request.method == "POST":
+         form = AdminCreateUserForm(request.POST)
+         if form.is_valid():
+            form.save()
+            messages.success(request, 'New employee created successfully!')
+            return redirect('adminpage')  
+    else:
+        form = AdminCreateUserForm()
+
+    return render(request, 'my_app/adminpage.html', {'form': form})
 
 #Mikayel Stuff
 
+#Color mapping for votes, this is used to convert the color names to numerical values
 COLOR_MAPPING = {
     'red': 1,
     'amber': 2,
     'green': 3
 }
 
+#Vice versa for better mapping
 REVERSE_COLOR_MAPPING = {
     1: 'red',
     2: 'amber',
@@ -65,8 +115,8 @@ def voting_view(request):
         return redirect('healthcard')
     
     context = {
-        'first_name': request.user.first_name,
-        'last_name': request.user.last_name,
+        'first_name' : request.user.first_name,
+        'last_name' : request.user.last_name,
         'username': request.user.username,
     }
 
@@ -160,6 +210,7 @@ def summary(request):
     health_cards = HealthCard.objects.all()
     all_votes = Vote.objects.all()
     
+    employee = Employee.objects.get(user=request.user)
     # Define categories
     categories = [
         'Teamwork', 'Pawns or Players', 'Mission', 'Health of Codebase',
@@ -231,6 +282,7 @@ def summary(request):
     completion_percentage = int((completed_count / total_members * 100) if total_members > 0 else 0)
     
     context = {
+        'role': employee.role,
         'category_summary': category_summary,
         'overall_score': overall_score,
         'overall_color': 'red' if overall_score < 1.68 else 'amber' if overall_score < 2.34 else 'green',
@@ -258,7 +310,9 @@ def contact(request):
 
 @login_required
 def profile(request):
-    return render(request, "my_app/profile.html")
+    employee = Employee.objects.get(user=request.user)
+    
+    return render(request, "my_app/profile.html", {'employee': employee})
 
 def engineerdashboard(request):
     return render(request, "my_app/engineerdashboard.html")

@@ -1,9 +1,5 @@
-/* base.css - Core layout and shared components */
-
-/* Page wrappers - all share the same basic structure */
-.voting-wrapper,
-.healthcard-wrapper,
-.summary-wrapper {
+/* anything with page- just uses a different way of structuring the page */
+.page-wrapper {
     width: 100%;
     min-height: 100vh;
     background: rgba(39, 39, 39, 0.4);
@@ -12,9 +8,7 @@
 }
 
 /* Main containers */
-.vote-container,
-.healthcard-container,
-.summary-container {
+.page-container {
     width: 95%;
     max-width: 1600px;
     margin: 0 auto 50px;
@@ -36,9 +30,7 @@ h1 {
 }
 
 /* Main content sections */
-.voting-section,
-.healthcard-section,
-.summary-section {
+.page-section {
     flex: 3;
     background: white;
     border-radius: 10px;
@@ -170,9 +162,7 @@ h1 {
 }
 
 @media (max-width: 768px) {
-    .vote-container,
-    .healthcard-container,
-    .summary-container {
+    .page-container {
         width: 95%;
         padding: 10px;
     }
@@ -183,9 +173,7 @@ h1 {
 }
 
 @media print {
-    .voting-wrapper,
-    .healthcard-wrapper,
-    .summary-wrapper {
+    .page-wrapper {
         background: white;
         padding: 0;
     }
@@ -202,9 +190,7 @@ h1 {
         display: block;
     }
     
-    .voting-section,
-    .healthcard-section,
-    .summary-section,
+    .page-section,
     .user-section,
     .team-section {
         box-shadow: none;

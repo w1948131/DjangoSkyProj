@@ -1,5 +1,3 @@
-/* tables.css - All table-related styling */
-
 /* Basic table structure */
 table {
     width: 100%;
@@ -43,19 +41,19 @@ th {
     margin: 0 auto;
 }
 
-.result-indicator.red {
+.red {
     background-color: #ff6b6b;
 }
 
-.result-indicator.amber {
+.amber {
     background-color: #ffd166;
 }
 
-.result-indicator.green {
+.green {
     background-color: #06d6a0;
 }
 
-.result-indicator.waiting {
+.waiting {
     background-color: #ddd;
     position: relative;
 }

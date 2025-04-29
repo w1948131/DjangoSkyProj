@@ -1,0 +1,3 @@
+Finish to do .htmls
+Designate User roles to employees (User's don't matter, only admin as a User does)
+Add functionality for employees to register their own account in the register page.

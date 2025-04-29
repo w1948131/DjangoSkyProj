@@ -7,6 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
    <link rel="stylesheet" href="{% static 'style.css' %}">
+   <link rel="stylesheet" href="{% static 'profile.css' %}">
    <title>Your Profile</title>
    <style>
     .profile-container {
@@ -60,9 +61,9 @@
        </div>
        <div class="nav-menu" id="navMenu">
            <ul>
-               <li><a href="home.html" class="link ">Home</a></li>
-               <li><a href="aboutus.html" class="link active">About</a></li>
-               <li><a href="contactus.html" class="link">Contact Us</a></li>
+               <li><a href="{% url 'home' %}" class="link active">Home</a></li>
+               <li><a href="{% url 'about' %}" class="link">About</a></li>
+               <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
            </ul>
        </div>
    </nav>
@@ -99,6 +100,14 @@
        <label>Email</label>
        <input type="email" value="{{ user.email }}" readonly>
     </div>
+    <div class="profile-field">
+      <label>Role</label>
+      <input type="text" value="{{ employee.role }}" readonly>
+   </div>
+   <div class="profile-field">
+      <label>Password</label>
+      <input type="text" value="*********" readonly>
+   </div>
  </div>  
 </body>
 </html>

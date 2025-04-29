@@ -13,7 +13,7 @@
 </head>
 <body>
     {% csrf_token %}
-    <div class="voting-wrapper">
+    <div class="page-wrapper">
         <nav class="nav">
             <div class="nav-logo">
                 <p>DJANGO LABS</p>
@@ -27,11 +27,11 @@
             </div>
         </nav>
         
-        <div class="vote-container">
+        <div class="page-container">
             <h1>Team Health Check Voting</h1>
             
             <div class="container">
-                <div class="voting-section">
+                <div class="page-section">
                     <!-- posting information to django db to be saved -->
                     <form id="votingForm" method="POST">
                         {% csrf_token %}
@@ -134,12 +134,13 @@
                 <div class="user-section">
                     <div class="user-profile">
                         <div class="user-avatar">
-                            <i>?</i>
+                            <!-- Effective until we get profile pictures :P -->
+                            <i>{{ first_name.0 }}{{ last_name.0 }}</i>
                         </div>
                         <!-- Displays User's names-->
-                        <div class="user-name">{{ first_name }} {{ last_name }}</div>
+                        <div class="user-name">{{ username }}</div>
                         <!-- Place holder for role. -->
-                        <div class="user-role">Team Developer</div>
+                        <div class="user-role">{{ role }}</div>
                     </div>
                 </div>
             </div>
@@ -174,7 +175,7 @@
                 </div>
             </div>
             <!-- text box for feedback area -->
-            <textarea id="feedback-input" class="feedback-area" placeholder="Leave feedback here..."></textarea>
+            <textarea id="feedback-input" class="feedback-area" placeholder="Leave feedback here...">Leave Feedback Here</textarea>
             <!-- button to submit vote for specific category -->
             <button class="modal-submit" onclick="submitVote()">Submit</button>
         </div>

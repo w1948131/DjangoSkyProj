@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Personal Health Card</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'tables.css' %}">
+    <link rel="stylesheet" href="{% static 'users.css' %}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>DJANGO LABS</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="link">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="page-container">
+            <h1>Sessions</h1>
+            
+            <div class="container">
+                <div class="page-section">
+                    
+                    
+                    
+                
+                    <div class="btn-container">
+                        <a href="{% url 'create_session' %}" class="btn">Create New Session</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    </script>
+</body>
+</html>

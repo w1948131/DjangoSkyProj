@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+   <title>Your Profile</title>
+   <style>
+
+
+    .profile-field {
+       margin: 15px 0;
+       text-align: left;
+    }
+    .profile-field label {
+       display: block;
+       font-weight: bold;
+       margin-bottom: 5px;
+    }
+    .profile-field input {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       background: #f9f9f9;
+    }
+    .change-password {
+       margin-top: 20px;
+       display: inline-block;
+       color: #007BFF;
+       text-decoration: none;
+       font-weight: bold;
+    }
+    .change-password:hover {
+       text-decoration: underline;
+    }
+ </style>
+</head>
+<body>
+<div class="wrapper">
+   <nav class="nav">
+       <div class="nav-logo">
+           <p>DJANGO LABS</p>
+       </div>
+       <div class="nav-menu" id="navMenu">
+           <ul>
+               <li><a href="home.html" class="link ">Home</a></li>
+               <li><a href="aboutus.html" class="link">About</a></li>
+               <li><a href="profile.html" class="link active">Your Profile</a></li>
+               <li><a href="engineerdashboard.html" class="link">Your Dashboard</a></li>
+               <li><a href="contactus.html" class="link">Contact Us</a></li>
+
+           </ul>
+       </div>
+   </nav>
+
+<div class="admin-container">
+    <h2>Create New User</h2>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create User</button>
+    </form>
+</div>
+
+</body>
+</html>

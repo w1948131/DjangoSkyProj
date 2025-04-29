@@ -186,6 +186,36 @@ header{
 .two label a:hover{
     text-decoration: underline;
 }
+
+.message-container {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.alert i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.alert-error {
+    background-color: #ffe5e5;
+    color: #e74c3c;
+    border-left: 4px solid #e74c3c;
+}
+
+.alert-success {
+    background-color: #e7f9e7;
+    color: #27ae60;
+    border-left: 4px solid #27ae60;
+}
+
 @media only screen and (max-width: 786px){
     .nav-button{
         display: none;

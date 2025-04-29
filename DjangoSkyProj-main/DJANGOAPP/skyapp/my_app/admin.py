@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HealthCard, Vote
+from .models import HealthCard, Vote, Team, Department, Employee
 
 # Register your models here.
 
@@ -32,3 +32,26 @@ class VoteAdmin(admin.ModelAdmin):
         colors = {1: 'Red', 2: 'Amber', 3: 'Green'}
         return colors.get(obj.color, 'Unknown')
     get_color_display.short_description = 'Color'
+
+#Function to get the Teams in the admin database
+@admin.register(Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name', 'user__username',)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('members')
+
+@admin.register(Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email', 'team_number', 'department_number', 'role')
+    search_fields = ('first_name', 'last_name', 'email')
+    list_filter = ('team_number', 'department_number', 'role')
+    ordering = ('first_name', 'last_name')
+
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    ordering = ('name',)
