@@ -32,6 +32,9 @@
 
      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 30px;">
         <a href="{% url 'healthcard' %}" class="link" style="font-size: 25px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border: 2px solid white; border-radius: 5px;">Health Card</a>
+        {% if employee.role == 'teamleader' or employee.role == 'seniormanager' or employee.role = 'departmentleader' %}
+        <a href="{% url 'healthcard' %}" class="link" style="font-size: 25px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border: 2px solid white; border-radius: 5px;">Summary</a>
+        {% endif %}
         <a href="{% url 'voting' %}" class="link" style="font-size: 25px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border: 2px solid white; border-radius: 5px;">Votes</a>
      </div>
    </div>

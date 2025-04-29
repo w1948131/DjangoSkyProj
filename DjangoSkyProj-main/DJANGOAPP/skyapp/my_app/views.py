@@ -315,4 +315,6 @@ def profile(request):
     return render(request, "my_app/profile.html", {'employee': employee})
 
 def engineerdashboard(request):
-    return render(request, "my_app/engineerdashboard.html")
+    employee = Employee.objects.get(user=request.user)
+
+    return render(request, "my_app/engineerdashboard.html", {'employee': employee})

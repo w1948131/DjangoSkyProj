@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 #Class for Healthcard
@@ -63,18 +64,17 @@ class Department(models.Model):
 class Team(models.Model):
 
     name = models.CharField(max_length=100)
-    
-
-    members = models.ManyToManyField(User, related_name='teams')
-    
 
     department = models.ForeignKey(
-        Department,
+        Department, 
         on_delete=models.CASCADE,
-        related_name='teams',  
-        null=True,
-        blank=True
+        related_name='teams',
+        null=True,  # Allow null temporarily
+        blank=True  # Allow blank in forms
     )
+
+    members = models.ManyToManyField(User, related_name='teams')
+
     
     def add_member(self, user):
         
@@ -90,13 +90,6 @@ class Team(models.Model):
             raise ValueError("User is not a member of this team.")
     
     
-    def set_department(self, department):
-        
-        if department and department.team_count() >= 5:
-            raise ValueError(f"Department '{department.name}' already has 5 teams and cannot accept more.")
-       
-        self.department = department
-        self.save()
             
     def __str__(self):
         return self.name
@@ -109,8 +102,6 @@ class Employee(models.Model):
         ('departmentleader', 'Department Leader'),
         ('seniormanager', 'Senior Manager'),
     ]
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
  
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50, blank=True)
@@ -123,3 +114,6 @@ class Employee(models.Model):
  
     def __str__(self):
         return self.email
+    
+class Session(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
