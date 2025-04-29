@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Health Check Summary</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'tables.css' %}">
+    <link rel="stylesheet" href="{% static 'users.css' %}">
+    <link rel="stylesheet" href="{% static 'summary.css' %}">
+</head>
+<body>
+    <div class="summary-wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>DJANGO LABS</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="link">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="summary-container">
+            <h1>Team Health Check Summary</h1>
+            
+            <div class="container">
+                <div class="summary-section">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Result</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category, data in category_summary.items %}
+                            <tr>
+                                <td class="category">{{ category }}</td>
+                                <td class="result">
+                                    <div class="result-indicator {{ data.color }}"></div>
+                                </td>
+                                <td class="score">
+                                    {% if data.score == 'N/A' %}
+                                        <span class="waiting-text">Waiting for all votes</span>
+                                    {% else %}
+                                        {{ data.score }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                    <div class="overall-score-container">
+                        <h2>Overall Team Health</h2>
+                        <div class="overall-score">
+                            <div class="score-value">{{ overall_score }}</div>
+                            <div class="score-label">out of 3.0</div>
+                        </div>
+                        <div class="score-indicator {{ overall_color }}"></div>
+                    </div>
+                    
+                    
+                    <div class="action-buttons">
+                        <a href="{% url 'voting' %}" class="btn secondary-btn">View Your Healthcard</a>
+                    </div>
+                </div>
+                
+                <div class="team-section">
+                    <h2>Team Members</h2>
+                    <div class="team-members">
+                        {% for member in team_members %}
+                        <div class="team-member">
+                            <div class="member-avatar">
+                                <i>{{ member.initials }}</i>
+                            </div>
+                            <div class="member-info">
+                                <div class="member-name">{{ member.name }}</div>
+                                <div class="vote-status {{ member.status }}">
+                                    Vote {{ member.status|title }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="team-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Team Size</div>
+                            <div class="stat-value">{{ team_stats.total }}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Votes Completed</div>
+                            <div class="stat-value">{{ team_stats.completed }}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Completion</div>
+                            <div class="stat-value">{{ team_stats.percentage }}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+   <title>About Us</title>
+</head>
+<body>
+<div class="wrapper">
+   <nav class="nav">
+       <div class="nav-logo">
+           <p>DJANGO LABS</p>
+       </div>
+       <div class="nav-menu" id="navMenu">
+           <ul>
+               <li><a href="{% url 'home' %}" class="link">Home</a></li>
+               <li><a href="{% url 'about' %}" class="link active">About</a></li>
+               <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+               <li><a href="{% url 'profile' %}" class="link">Profile</a></li>
+               <li><button class="btn white-btn" id="logoutBtn" onclick="window.location.href = '{% url 'home' %}'" style="font-size: 15px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border-radius: 5px; background-color: transparent; cursor: pointer;">Log out</button></li>
+           </ul>
+       </div>
+   </nav>
+
+   
+   <div class="welcome-message" style="display: flex; flex-direction: column; align-items: center;">
+     <p style="color: white; font-size: 80px; font-weight: bold;">Welcome, {{ user.username }}!</p>
+
+     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 30px;">
+        <a href="{% url 'healthcard' %}" class="link" style="font-size: 25px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border: 2px solid white; border-radius: 5px;">Health Card</a>
+        <a href="{% url 'voting' %}" class="link" style="font-size: 25px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border: 2px solid white; border-radius: 5px;">Votes</a>
+     </div>
+   </div>
+
+</div>
+</body>
+</html>

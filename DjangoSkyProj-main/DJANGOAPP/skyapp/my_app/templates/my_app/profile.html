@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+   <title>Your Profile</title>
+   <style>
+    .profile-container {
+       max-width: 400px;
+       margin: 50px auto;
+       background: white;
+       padding: 30px;
+       border-radius: 10px;
+       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+       text-align: center;
+    }
+    .profile-image {
+       width: 100px;
+       height: 100px;
+       border-radius: 50%;
+       margin-bottom: 10px;
+    }
+    .profile-field {
+       margin: 15px 0;
+       text-align: left;
+    }
+    .profile-field label {
+       display: block;
+       font-weight: bold;
+       margin-bottom: 5px;
+    }
+    .profile-field input {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       background: #f9f9f9;
+    }
+    .change-password {
+       margin-top: 20px;
+       display: inline-block;
+       color: #007BFF;
+       text-decoration: none;
+       font-weight: bold;
+    }
+    .change-password:hover {
+       text-decoration: underline;
+    }
+ </style>
+</head>
+<body>
+<div class="wrapper">
+   <nav class="nav">
+       <div class="nav-logo">
+           <p>DJANGO LABS</p>
+       </div>
+       <div class="nav-menu" id="navMenu">
+           <ul>
+               <li><a href="home.html" class="link ">Home</a></li>
+               <li><a href="aboutus.html" class="link active">About</a></li>
+               <li><a href="contactus.html" class="link">Contact Us</a></li>
+           </ul>
+       </div>
+   </nav>
+
+<!-- Profile Page Content -->
+<div class="profile-container">
+    <!-- Profile Image -->
+    <img src="{% static 'images/profile-avatar.jpg' %}" alt="Profile" class="profile-image">
+ 
+    <!-- Name Heading (Optional) -->
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    <p style="color: #666; margin-bottom: 20px;">Your profile information</p>
+ 
+    <!-- First Name -->
+    <div class="profile-field">
+       <label>First Name</label>
+       <input type="text" value="{{ user.first_name }}" readonly>
+    </div>
+ 
+    <!-- Last Name -->
+    <div class="profile-field">
+       <label>Last Name</label>
+       <input type="text" value="{{ user.last_name }}" readonly>
+    </div>
+ 
+    <!-- Username -->
+    <div class="profile-field">
+       <label>Username</label>
+       <input type="text" value="{{ user.username }}" readonly>
+    </div>
+ 
+    <!-- Email -->
+    <div class="profile-field">
+       <label>Email</label>
+       <input type="email" value="{{ user.email }}" readonly>
+    </div>
+ </div>  
+</body>
+</html>
+
+
