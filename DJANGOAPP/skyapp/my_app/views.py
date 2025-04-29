@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from .models import Employee
+from .forms import AdminCreateUserForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -37,6 +40,19 @@ def register_view(request):
             return render(request, 'my_app/home.html', {'error': 'Enter credentials in all fields'})
     return redirect('home')
 
+def admin_create_view(request):
+    if request.method == "POST":
+         form = AdminCreateUserForm(request.POST)
+         if form.is_valid():
+            form.save()
+            messages.success(request, 'New employee created successfully!')
+            return redirect('adminpage')  
+    else:
+        form = AdminCreateUserForm()
+
+    return render(request, 'my_app/adminpage.html', {'form': form})
+    
+
 def home(request):
     return render(request, "my_app/home.html")
 
@@ -46,5 +62,20 @@ def about(request):
 def contact(request):
     return render(request, "my_app/contactus.html")
 
+def profile(request):
+    employee=Employee.objects.all() #RAY DID THIS TO ACCESS INFORMATION FOR EMPLOYEE
+    return render(request, "my_app/profile.html", {'employee': employee})#Access the employee definition RAY WAS HERE 
+
 def engineerdashboard(request):
     return render(request, "my_app/engineerdashboard.html")
+
+def adminpage(request):
+    return render(request, "my_app/adminpage.html")
+ #<!------------------- Rays work -------------------------->
+def dashboard_view(request):
+    employee = request.employee
+    is_team_leader = employee.group.filter(name='TeamLeader').exists()
+    return render(request, 'engineerdashboard.html', {
+        'employee': employee,
+        'is_team_leader': is_team_leader,
+    })
