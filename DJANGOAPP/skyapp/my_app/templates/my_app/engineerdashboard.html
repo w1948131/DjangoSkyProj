@@ -8,6 +8,7 @@
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
    <link rel="stylesheet" href="{% static 'style.css' %}">
    <title>Engineer Dashboard</title>
+   <!------------------- Rays work -------------------------->
    <style>
       .motivational-message {
          position: fixed;
@@ -55,8 +56,13 @@
                <li><a href="home.html" class="link">Home</a></li>
                <li><a href="aboutus.html" class="link active">About</a></li>
                <li><a href="contactus.html" class="link">Contact Us</a></li>
-               <li><a href="profile.html" class="link">Profile</a></li>
-               <li>
+               <li><a href="{% url 'profile' %}" class="link">Profile</a></li>
+
+               {% if is_team_leader}
+               <a href="{%url 'view_team' %}" class="link">View Teams</a>
+               <a href="{%url 'view_team' %}" class="link">View Departments</a>
+               {% endif %}
+               
                    <button class="btn white-btn" id="logoutBtn"
                            onclick="window.location.href = '{% url 'home' %}'"
                            style="font-size: 15px; color: white; margin: 10px 0; text-decoration: none; padding: 10px 20px; border-radius: 5px; background-color: transparent; cursor: pointer;">
