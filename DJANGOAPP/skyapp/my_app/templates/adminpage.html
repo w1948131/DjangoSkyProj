@@ -1,0 +1,81 @@
+ <!------------------- Umar(w1948131) made this -------------------------->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+   <title>Your Profile</title>
+
+   <style>
+    form p {
+        margin-bottom: 15px; /* space between input field */
+    }
+
+    /* styling for the labels in the form*/
+    form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* styling for the input fields within forms and submit button */
+    form input, form select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    form button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-weight: bold;
+        background-color: blue;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer; /*changes cursor when hovering over*/
+    }
+
+    form button:hover {
+        background-color: green;
+    }
+</style>
+</head>
+<body>
+<div class="wrapper">
+   <nav class="nav">
+       <div class="nav-logo">
+           <p>DJANGO LABS</p>
+       </div>
+       <div class="nav-menu" id="navMenu">
+           <ul>
+               <li><a href="home.html" class="link ">Admin Login</a></li>
+               <li><a href="adminpage.html" class="link active">Admin Create User</a></li>
+           </ul>
+       </div>
+   </nav>
+
+ <!------------------- Umar(w1948131) made this -------------------------->
+<div class="admin-container"> 
+    <h2>Create New User</h2> 
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create User</button>
+    </form>
+</div>
+
+</body>
+</html>
