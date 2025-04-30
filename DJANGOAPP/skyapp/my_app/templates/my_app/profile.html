@@ -1,150 +1,141 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <title>Login & Registration</title>
-  </head>
-  <body>
-    <div class="wrapper">
-      <nav class="nav">
-        <div class="nav-logo">
-          <p>DJANGO LABS</p>
-        </div>
-        <div class="nav-menu" id="navMenu">
-          <ul>
-            <li><a href="home.html" class="link active">Home</a></li>
-            <li><a href="aboutus.html" class="link">About</a></li>
-            <li><a href="contactus.html" class="link">Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="nav-button">
-          <button class="btn white-btn" id="loginBtn" onclick="login()">
-            Sign In
-          </button>
-          <button class="btn" id="registerBtn" onclick="register()">
-            Sign Up
-          </button>
-        </div>
-        <div class="nav-menu-btn">
-          <i class="bx bx-menu" onclick="myMenuFunction()"></i>
-        </div>
-      </nav>
-      <!----------------------------- Form box ----------------------------------->
-      <div class="form-box">
-        <!------------------- login form -------------------------->
-        <div class="login-container" id="login">
-          <div class="top">
-            <span
-              >Don't have an account?
-              <a href="#" onclick="register()">Sign Up</a></span
-            >
-            <header>Login</header>
-          </div>
-          <div class="input-box">
-            <input
-              type="text"
-              class="input-field"
-              placeholder="Username or Email"
-            />
-            <i class="bx bx-user"></i>
-          </div>
-          <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password" />
-            <i class="bx bx-lock-alt"></i>
-          </div>
-          <div class="input-box">
-            <input type="submit" class="submit" value="Sign In" />
-          </div>
-          <div class="two-col">
-            <div class="one">
-              <input type="checkbox" id="login-check" />
-              <label for="login-check"> Remember Me</label>
-            </div>
-            <div class="two">
-              <label><a href="#">Forgot password?</a></label>
-            </div>
-          </div>
-        </div>
-        <!------------------- registration form -------------------------->
-        <div class="register-container" id="register">
-          <div class="top">
-            <span
-              >Have an account? <a href="#" onclick="login()">Login</a></span
-            >
-            <header>Sign Up</header>
-          </div>
-          <div class="two-forms">
-            <div class="input-box">
-              <input type="text" class="input-field" placeholder="Firstname" />
-              <i class="bx bx-user"></i>
-            </div>
-            <div class="input-box">
-              <input type="text" class="input-field" placeholder="Lastname" />
-              <i class="bx bx-user"></i>
-            </div>
-          </div>
-          <div class="input-box">
-            <input type="text" class="input-field" placeholder="Email" />
-            <i class="bx bx-envelope"></i>
-          </div>
-          <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password" />
-            <i class="bx bx-lock-alt"></i>
-          </div>
-          <div class="input-box">
-            <input type="submit" class="submit" value="Register" />
-          </div>
-          <div class="two-col">
-            <div class="one">
-              <input type="checkbox" id="register-check" />
-              <label for="register-check"> Remember Me</label>
-            </div>
-            <div class="two">
-              <label><a href="#">Terms & conditions</a></label>
-            </div>
-          </div>
-        </div>
-      </div>
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+   <link rel="stylesheet" href="{% static 'profile.css' %}">
+   <title>Your Profile</title>
+   <style>
+    .profile-container {
+       max-width: 400px;
+       margin: 50px auto;
+       background: white;
+       padding: 30px;
+       border-radius: 10px;
+       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+       text-align: center;
+    }
+    .profile-image {
+       width: 100px;
+       height: 100px;
+       border-radius: 50%;
+       margin-bottom: 10px;
+    }
+    .profile-field {
+       margin: 15px 0;
+       text-align: left;
+    }
+    .profile-field label {
+       display: block;
+       font-weight: bold;
+       margin-bottom: 5px;
+    }
+    .profile-field input {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       background: #f9f9f9;
+    }
+    .change-password {
+       margin-top: 20px;
+       display: inline-block;
+       color: #007BFF;
+       text-decoration: none;
+       font-weight: bold;
+    }
+    .change-password:hover {
+       text-decoration: underline;
+    }
+ </style>
+</head>
+<body>
+<div class="wrapper">
+   <nav class="nav">
+       <div class="nav-logo">
+           <p>DJANGO LABS</p>
+       </div>
+       <div class="nav-menu" id="navMenu">
+           <ul>
+               <li><a href="{% url 'home' %}" class="link">Home</a></li>
+               <li><a href="{% url 'profile' %}" class="link">Profile</a></li>
+               <li><a href="{% url 'engineerdashboard' %}" class="link active">Engineer Dashboard</a></li> <!-- umar(w1948131) -->
+               <li><a href="{% url 'about' %}" class="link">About</a></li>
+               <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+           </ul>
+       </div>
+   </nav>
+
+<!-- Profile Page Content -->
+<div class="profile-container">
+    <!-- Profile Image -->
+    <img src="{% static 'images/profile-avatar.jpg' %}" alt="Profile" class="profile-image">
+ 
+    <!-- Name Heading (Optional) -->
+    <h2>{{ employee.first_name }} {{ employee.last_name }}</h2> <!-- umar(w1948131) changed  to retireve from employee table -->
+    <p style="color: #666; margin-bottom: 20px;">Your profile information</p>
+ 
+    <!-- First Name -->
+    <div class="profile-field">
+       <label>First Name</label>
+       <input type="text" value="{{ employee.first_name }}" readonly>
     </div>
-    <script>
-      function myMenuFunction() {
-        var i = document.getElementById("navMenu");
-        if (i.className === "nav-menu") {
-          i.className += " responsive";
-        } else {
-          i.className = "nav-menu";
-        }
-      }
-    </script>
-    <script>
-      var a = document.getElementById("loginBtn");
-      var b = document.getElementById("registerBtn");
-      var x = document.getElementById("login");
-      var y = document.getElementById("register");
-      function login() {
-        x.style.left = "4px";
-        y.style.right = "-520px";
-        a.className += " white-btn";
-        b.className = "btn";
-        x.style.opacity = 1;
-        y.style.opacity = 0;
-      }
-      function register() {
-        x.style.left = "-510px";
-        y.style.right = "5px";
-        a.className = "btn";
-        b.className += " white-btn";
-        x.style.opacity = 0;
-        y.style.opacity = 1;
-      }
-    </script>
-  </body>
+ 
+    <!-- Last Name -->
+    <div class="profile-field">
+       <label>Last Name</label>
+       <input type="text" value="{{ employee.last_name }}" readonly>
+    </div>
+ 
+    <!-- Username -->
+    <div class="profile-field">
+       <label>Username</label>
+       <input type="text" value="{{ employee.username }}" readonly>
+    </div>
+ 
+    <!-- Email -->
+    <div class="profile-field">
+       <label>Email</label>
+       <input type="email" value="{{ employee.email }}" readonly>
+    </div>
+    <div class="profile-field">
+      <label>Role</label>
+      <input type="text" value="{{ employee.role }}" readonly>
+   </div>
+   <div class="profile-field">
+      <label>Password</label>
+      <input type="text" value="{{ employee.password }}" readonly>
+   </div>
+   <div>
+      <h3>Change your password</h3>
+      {% if messages %}
+      <div class="messages">
+         {% for message in messages %}
+            <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{message}}</p> <!-- umar(w1948131) display appropraite messages based on user input -->
+         {%endfor%}
+      </div>
+   {% endif %}
+      <form method='POST' action="{% url 'change_password' %}">
+         {% csrf_token %}
+         <div class = "input-box">
+            <label>New Password </label>
+            <input type='password' name="updated_password" placeholder="Enter your new password" required>
+
+         </div>
+         <div input="input-box">
+            <input type='submit' class='submit-btn' value="Update Password">
+         </div>
+
+      </form>
+   </div>
+
+      
+ </div>  
+</body>
 </html>
+
+
