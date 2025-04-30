@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <title>Login & Registration</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav class="nav">
+        <div class="nav-logo">
+          <p>DJANGO LABS</p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+          <ul>
+            <li><a href="{% url 'home' %}" class="link active">Home</a></li>
+            <li><a href="{% url 'about' %}" class="link">About</a></li>
+            <li><a href="{% url 'contact' %}" class="link">Contact Us</a></li>
+            <li><a href="{% url 'admin' %}" class="link">Admin login</a></li>
+          </ul>
+        </div>
+        <div class="nav-button">
+          <button class="btn white-btn" id="loginBtn" onclick="login()">
+            Sign In
+          </button>
+          <button class="btn" id="registerBtn" onclick="register()">
+            Sign Up
+          </button>
+        </div>
+        <div class="nav-menu-btn">
+          <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+      </nav>
+      <!----------------------------- admin login form ------------------------------------>
+      <div class="form-box">
+        <div class="login-container" id="login">
+          <div class="top">
+            <header>Admin Login</header>
+            {% if error %}
+            <p style="color: red; margin-top: 10px">{{ error }}</p>
+            {% endif %}
+          </div>
+
+          <form id="loginForm" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div class="input-box">
+              <i class="bx bx-user"></i>
+              <input
+                type="text"
+                name="username"
+                class="input-field"
+                placeholder="Username"
+              />
+            </div>
+            <div class="input-box">
+              <input
+                type="password"
+                name="password"
+                class="input-field"
+                placeholder="Password"
+              />
+              <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="input-box">
+              <input type="submit" class="submit" value="Sign In" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
